@@ -1,23 +1,27 @@
 <div class="wrap">
-  <p class="title">filters :</p>
+  <p class="title">{{(title) ? title : 'Title'}}</p>
   <div class="search">
-    <ng-container *ngIf="!filtersVisible; else editFilters">
+    <ng-container *ngIf="!viewMode; else editMode">
     <div class="search-terms" [ngClass]="{'edit-hint':editHintVisible}" (mouseenter)="editDetailsToggle($event)" (mouseleave)="editDetailsToggle($event)">
-      <ng-container *ngFor="let term of terms">
-        <p class="term-item"><span class="term">{{term}}</span></p>
-      </ng-container>
+        <div class="terms-container">
+          <ng-container *ngFor="let term of terms">
+              <p class="term-item"><span class="term">{{term}}</span></p>
+          </ng-container>
+        </div>
       <div class="term-edit-wrap" (click)="filtersToggle()">
-        <img class="term-edit" [ngClass]="{'visible': editHintVisible, 'hidden': !editHintVisible}" src="../../assets/pencil.svg">
+        <img class="term-edit-img" [ngClass]="{'visible': editHintVisible, 'hidden': !editHintVisible}" src="../../assets/edit.svg" alt="action">
       </div>
     </div>
     </ng-container>
-    <ng-template #editFilters>
+    <ng-template #editMode>
       <div class="search-terms edit-hint">
-        <ng-container *ngFor="let term of terms; index as index">
-          <p class="term-item"><span class="term">{{term}}</span><span class="term-delete" (click)="deleteTerm(index)">x</span></p>
-        </ng-container>
+        <div class="terms-container">
+          <ng-container *ngFor="let term of terms; index as index">
+            <p class="term-item"><span class="term">{{term}}</span><span class="term-delete" (click)="deleteTerm(index)">x</span></p>
+          </ng-container>
+        </div>
         <div class="term-check-wrap" (click)="filtersToggle()">
-          <img class="term-check" src="../../assets/check_mark.png">
+          <img class="term-check-img" src="../../assets/check_mark.svg" alt="action">
         </div>
       </div>
     </ng-template>

@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {DataProviderService} from "../services/data-provider.service";
 
 @Component({
@@ -7,7 +7,8 @@ import {DataProviderService} from "../services/data-provider.service";
   styleUrls: ['./search.component.css']
 })
 export class SearchComponent implements OnInit {
-  public filtersVisible: boolean;
+  @Input() title: string;
+  public viewMode: boolean;
   public editHintVisible: boolean
   public terms: Array<string>;
   private dataService: DataProviderService;
@@ -18,7 +19,7 @@ export class SearchComponent implements OnInit {
 
   ngOnInit(): void {
     this.terms = this.dataService.getData();
-    this.filtersVisible = false;
+    this.viewMode = false;
   }
 
   public deleteTerm(index: number): void {
@@ -26,7 +27,7 @@ export class SearchComponent implements OnInit {
   }
 
   public filtersToggle(): void {
-    this.filtersVisible = !this.filtersVisible;
+    this.viewMode = !this.viewMode;
   }
 
   public editDetailsToggle(event: Event): void {
