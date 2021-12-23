@@ -1,0 +1,25 @@
+<div class="wrap">
+  <p class="title">filters :</p>
+  <div class="search">
+    <ng-container *ngIf="!filtersVisible; else editFilters">
+    <div class="search-terms" [ngClass]="{'edit-hint':editHintVisible}" (mouseenter)="editDetailsToggle($event)" (mouseleave)="editDetailsToggle($event)">
+      <ng-container *ngFor="let term of terms">
+        <p class="term-item"><span class="term">{{term}}</span></p>
+      </ng-container>
+      <div class="term-edit-wrap" (click)="filtersToggle()">
+        <img class="term-edit" [ngClass]="{'visible': editHintVisible, 'hidden': !editHintVisible}" src="../../assets/pencil.svg">
+      </div>
+    </div>
+    </ng-container>
+    <ng-template #editFilters>
+      <div class="search-terms edit-hint">
+        <ng-container *ngFor="let term of terms; index as index">
+          <p class="term-item"><span class="term">{{term}}</span><span class="term-delete" (click)="deleteTerm(index)">x</span></p>
+        </ng-container>
+        <div class="term-check-wrap" (click)="filtersToggle()">
+          <img class="term-check" src="../../assets/check_mark.png">
+        </div>
+      </div>
+    </ng-template>
+  </div>
+</div>

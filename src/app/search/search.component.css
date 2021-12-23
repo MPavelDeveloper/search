@@ -1,0 +1,84 @@
+.wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 3px;
+}
+
+.title {
+  margin-right: 6px;
+}
+
+.search {
+  display: flex;
+}
+
+.search-terms {
+  display: flex;
+  border-radius: 12px;
+  border: 1px solid white;
+  padding: 6px 18px 6px 6px;
+  min-width: 120px;
+  transition: 300ms;
+  cursor: pointer;
+}
+
+.search-terms.edit-hint {
+  border: 1px solid gray;
+}
+
+.term-item {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  margin-right: 9px;
+  border-radius: 3px;
+  padding: 6px;
+  background: lightgray;
+  transition: 300ms;
+  cursor: pointer;
+}
+
+.term {
+  margin-right: 9px;
+}
+
+.term-item:last-child {
+  margin-right: 21px;
+}
+
+.term-edit-wrap {
+  flex-grow: 1;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  height: 30px;
+  width: 30px;
+}
+
+.term-edit {
+  height: 18px;
+  width: 18px;
+  transition: 300ms;
+}
+
+.term-check-wrap {
+  flex-grow: 1;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  height: 30px;
+  width: 30px;
+}
+.term-check {
+  height: 18px;
+  width: 18px;
+}
+
+.visible {
+  opacity: 1;
+}
+
+.hidden {
+  opacity: 0;
+}
