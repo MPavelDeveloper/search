@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import {DataProviderService} from './services/data-provider.service';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +7,18 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'search';
+  public filters: Array<string>;
+  private dataProvider: DataProviderService;
+
+  constructor(dataProvider: DataProviderService) {
+    this.dataProvider = dataProvider;
+  }
+
+  public termHandler(term: string): void {
+    this.filters = this.dataProvider.findFilters(term);
+  }
+
+  testFn($event: string) {
+    console.log($event)
+  }
 }

@@ -1,5 +1,6 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {DataProviderService} from "../services/data-provider.service";
+import {Component, Input, OnInit, Output, EventEmitter} from '@angular/core';
+import {DataProviderService} from '../services/data-provider.service';
+import {TEST_FILTERS} from '../testData';
 
 @Component({
   selector: 'search',
@@ -8,6 +9,10 @@ import {DataProviderService} from "../services/data-provider.service";
 })
 export class SearchComponent implements OnInit {
   @Input() title: string;
+  @Input() searchResult: Array<string>;
+  @Output() searchTerms: Array<string>;
+  @Output() term = new EventEmitter<string>();
+
   public viewMode: boolean;
   public editHintVisible: boolean
   public terms: Array<string>;
@@ -18,19 +23,32 @@ export class SearchComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.terms = this.dataService.getData();
-    this.viewMode = false;
+    this.searchResult = [];
+    this.terms = [].concat(TEST_FILTERS);
+    this.viewMode = true;
   }
 
   public deleteTerm(index: number): void {
     this.terms.splice(index, 1);
   }
 
-  public filtersToggle(): void {
+  public viewEditToggle(): void {
     this.viewMode = !this.viewMode;
   }
 
-  public editDetailsToggle(event: Event): void {
+  public editHintToggle(event: Event): void {
     (event.type === 'mouseenter') ? this.editHintVisible = true : this.editHintVisible = false;
+  }
+
+  public emitSearchTerms(term: string): void {
+    if (term.trim()) {
+      this.term.emit(term.trim());
+    } else {
+      this.cleanSearchResult()
+    }
+  }
+
+  public cleanSearchResult(): void {
+    this.searchResult = []
   }
 }

@@ -1,11 +1,11 @@
 .wrap {
   display: flex;
   align-items: center;
-  justify-content: center;
   padding: 3px;
 }
 
 .title {
+  align-self: flex-start;
   flex-shrink: 0;
   margin-right: 6px;
   color: #6b778c;
@@ -15,28 +15,46 @@
   display: flex;
 }
 
-.search-terms {
+.search-terms-edit-wrap {
+  position: relative;
+}
+
+.search-terms-view, .search-terms-edit {
   display: flex;
+  align-items: flex-start;
   flex-flow: row nowrap;
   border-radius: 12px;
   border: 1px solid white;
-  padding: 6px 18px 6px 6px;
+  padding: 0px 18px 0px 6px;
   transition: 300ms;
   cursor: pointer;
 }
 
-.search-terms.edit-hint {
+.search-terms-view.edit-hint {
   border: 1px solid #ebecf0;
+}
+
+.search-terms.edit {
+  border: 2.1px solid #4c9aff;
+}
+
+.search-results-wrap {
+  margin: 0px 18px 6px 6px;
+  position: relative;
+  background-color: lightblue;
+}
+
+.search-result {
+  padding: 6px 18px;
 }
 
 .terms-container {
   display: flex;
-  margin-right: 21px;
   flex-flow: row wrap;
   align-items: center;
 }
 
-.term-item {
+.term-item-view, .term-item-edit {
   align-self: center;
   display: flex;
   align-items: center;
@@ -46,10 +64,18 @@
   border-bottom: 1px solid white;
   border-top: 1px solid white;
   padding: 1px 5px;
-  background: rgba(9,30,66,0.08);
+  background: rgba(9, 30, 66, 0.08);
   transition: 300ms;
   cursor: pointer;
 }
+.term-item-view:last-child, .term-item-edit:last-child {
+  margin-right: 0px;
+}
+
+.term-item-edit:hover {
+  background: #80808042;
+}
+
 
 .term {
   font-size: 14px;
@@ -87,6 +113,7 @@
   height: 30px;
   width: 30px;
 }
+
 .term-check-img {
   height: 18px;
   width: 18px;
@@ -98,4 +125,14 @@
 
 .hidden {
   opacity: 0;
+}
+
+.search-input-wrap {
+
+}
+
+.search-input {
+  border-radius: 3px;
+  padding: 3px;
+  background-color: #add8e678;
 }

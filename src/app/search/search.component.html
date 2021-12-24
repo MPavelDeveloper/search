@@ -1,27 +1,35 @@
 <div class="wrap">
   <p class="title">{{(title) ? title : 'Title'}}</p>
   <div class="search">
-    <ng-container *ngIf="!viewMode; else editMode">
-    <div class="search-terms" [ngClass]="{'edit-hint':editHintVisible}" (mouseenter)="editDetailsToggle($event)" (mouseleave)="editDetailsToggle($event)">
-        <div class="terms-container">
-          <ng-container *ngFor="let term of terms">
-              <p class="term-item"><span class="term">{{term}}</span></p>
-          </ng-container>
+    <ng-container *ngIf="viewMode; else editMode">
+      <div class="search-terms-view" (mouseenter)="editHintToggle($event)" (mouseleave)="editHintToggle($event)">
+          <div class="terms-container">
+            <ng-container *ngFor="let term of terms">
+                <p class="term-item-view"><span class="term">{{term}}</span></p>
+            </ng-container>
+          </div>
+        <div class="term-edit-wrap" (click)="viewEditToggle()">
+          <img class="term-edit-img" [ngClass]="{'visible': editHintVisible, 'hidden': !editHintVisible}" src="../../assets/edit.svg" alt="action">
         </div>
-      <div class="term-edit-wrap" (click)="filtersToggle()">
-        <img class="term-edit-img" [ngClass]="{'visible': editHintVisible, 'hidden': !editHintVisible}" src="../../assets/edit.svg" alt="action">
       </div>
-    </div>
     </ng-container>
     <ng-template #editMode>
-      <div class="search-terms edit-hint">
-        <div class="terms-container">
-          <ng-container *ngFor="let term of terms; index as index">
-            <p class="term-item"><span class="term">{{term}}</span><span class="term-delete" (click)="deleteTerm(index)">x</span></p>
-          </ng-container>
+      <div class="search-terms-edit-wrap">
+        <div class="search-terms-edit">
+          <div class="terms-container">
+            <ng-container *ngFor="let term of terms; index as index">
+              <p class="term-item-edit"><span class="term">{{term}}</span><span class="term-delete" (click)="deleteTerm(index)">x</span></p>
+            </ng-container>
+            <div class="search-input-wrap">
+              <input class="search-input" type="text" autofocus placeholder="new term" #term (keyup)="emitSearchTerms(term.value)">
+            </div>
+          </div>
+          <div class="term-check-wrap" (click)="viewEditToggle(); cleanSearchResult()">
+            <img class="term-check-img" src="../../assets/check_mark.svg" alt="action">
+          </div>
         </div>
-        <div class="term-check-wrap" (click)="filtersToggle()">
-          <img class="term-check-img" src="../../assets/check_mark.svg" alt="action">
+        <div class="search-results-wrap" *ngIf="searchResult.length">
+          <p *ngFor="let result of searchResult" class="search-result">{{result}}</p>
         </div>
       </div>
     </ng-template>
