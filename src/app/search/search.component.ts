@@ -9,13 +9,13 @@ import {TEST_FILTERS} from '../testData';
 })
 export class SearchComponent implements OnInit {
   @Input() title: string;
-  @Input() searchResult: Array<string>;
+  @Input() searchTermResult: Array<string>;
   @Output() searchTerms: Array<string>;
   @Output() term = new EventEmitter<string>();
 
+  public terms: Array<string>;
   public viewMode: boolean;
   public editHintVisible: boolean
-  public terms: Array<string>;
   private dataService: DataProviderService;
 
   constructor(dataService: DataProviderService) {
@@ -23,16 +23,13 @@ export class SearchComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.searchResult = [];
-    this.terms = [].concat(TEST_FILTERS);
+    this.searchTermResult = [];
+    this.terms = [...TEST_FILTERS];
     this.viewMode = true;
   }
 
-  public deleteTerm(index: number): void {
-    this.terms.splice(index, 1);
-  }
-
   public viewEditToggle(): void {
+    console.log(111)
     this.viewMode = !this.viewMode;
   }
 
@@ -49,6 +46,29 @@ export class SearchComponent implements OnInit {
   }
 
   public cleanSearchResult(): void {
-    this.searchResult = []
+    this.searchTermResult = []
+  }
+
+  public isChecked(term: string): boolean {
+    return (this.terms.includes(term)) ? true : false;
+  }
+
+  public termHandler(termCheckBox: HTMLInputElement): void {
+    if (termCheckBox.checked) {
+      this.terms.push(termCheckBox.value);
+    } else {
+      this.deleteTerm(termCheckBox.value)
+    }
+  }
+
+  public deleteTerm(term: string): void {
+    let index = this.terms.findIndex(currentTerm => currentTerm === term);
+    if (index > -1) {
+      this.terms.splice(index, 1);
+    }
+  }
+
+  test() {
+    console.log(111)
   }
 }

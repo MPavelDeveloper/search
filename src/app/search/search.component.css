@@ -39,13 +39,32 @@
 }
 
 .search-results-wrap {
-  margin: 0px 18px 6px 6px;
   position: relative;
-  background-color: lightblue;
+  overflow-y: scroll;
+  margin: 3px 18px 6px 6px;
+  border: 1px solid lightgray;
+  padding: 9px 12px;
+  max-height: 300px;
+  box-shadow: 0 2px 4px lightgray;
+}
+
+.search-result-title {
+  margin-bottom: 3px;
+  font-weight: bold;
 }
 
 .search-result {
-  padding: 6px 18px;
+  margin-right: 3px;
+  height: 16px;
+  width: 16px;
+}
+
+.search-result-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 3px;
+  font-size: 15px;
+  cursor: pointer;
 }
 
 .terms-container {
@@ -99,6 +118,7 @@
 }
 
 .term-edit-img {
+  align-self: flex-start;
   height: 18px;
   width: 18px;
   transition: 300ms;
@@ -115,8 +135,10 @@
 }
 
 .term-check-img {
+  align-self: flex-start;
   height: 18px;
   width: 18px;
+  opacity: 0.6;
 }
 
 .visible {
@@ -134,5 +156,5 @@
 .search-input {
   border-radius: 3px;
   padding: 3px;
-  background-color: #add8e678;
+  /*background-color: #add8e678;*/
 }

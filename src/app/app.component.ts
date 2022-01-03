@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 import {DataProviderService} from './services/data-provider.service';
+import {Subscription} from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -9,6 +10,7 @@ import {DataProviderService} from './services/data-provider.service';
 export class AppComponent {
   public filters: Array<string>;
   private dataProvider: DataProviderService;
+  private filters$: Subscription;
 
   constructor(dataProvider: DataProviderService) {
     this.dataProvider = dataProvider;
@@ -16,9 +18,8 @@ export class AppComponent {
 
   public termHandler(term: string): void {
     this.filters = this.dataProvider.findFilters(term);
-  }
-
-  testFn($event: string) {
-    console.log($event)
+    this.dataProvider.find(term).subscribe(filter =>
+      console.log(filter)
+    );
   }
 }
