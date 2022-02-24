@@ -1,4 +1,4 @@
-.wrap {
+.wrap-search {
   display: flex;
   align-items: center;
   padding: 3px;
@@ -39,12 +39,15 @@
 }
 
 .search-results-wrap {
-  position: relative;
+  position: absolute;
   overflow-y: scroll;
   margin: 3px 18px 6px 6px;
   border: 1px solid lightgray;
+  border-radius: 3px;
   padding: 9px 12px;
   max-height: 300px;
+  width: 93%;
+  background: white;
   box-shadow: 0 2px 4px lightgray;
 }
 

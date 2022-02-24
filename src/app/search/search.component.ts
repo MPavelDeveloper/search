@@ -1,18 +1,19 @@
-import {Component, Input, OnInit, Output, EventEmitter} from '@angular/core';
+import {Component, Input, OnInit, Output, EventEmitter, HostListener, ViewChild, ElementRef} from '@angular/core';
 import {DataProviderService} from '../services/data-provider.service';
 import {TEST_FILTERS} from '../testData';
 
 @Component({
   selector: 'search',
   templateUrl: './search.component.html',
-  styleUrls: ['./search.component.css']
+  styleUrls: ['./search.component.css'],
+  host: {'(document:click)' : 'onDocumentClickHandler($event.target)'}
 })
 export class SearchComponent implements OnInit {
   @Input() title: string;
   @Input() searchTermResult: Array<string>;
   @Output() searchTerms: Array<string>;
   @Output() term = new EventEmitter<string>();
-
+  @ViewChild('editTermsWrap') editTermsWrap: ElementRef;
   public terms: Array<string>;
   public viewMode: boolean;
   public editHintVisible: boolean
@@ -29,7 +30,6 @@ export class SearchComponent implements OnInit {
   }
 
   public viewEditToggle(): void {
-    console.log(111)
     this.viewMode = !this.viewMode;
   }
 
@@ -50,7 +50,7 @@ export class SearchComponent implements OnInit {
   }
 
   public isChecked(term: string): boolean {
-    return (this.terms.includes(term)) ? true : false;
+    return this.terms.includes(term);
   }
 
   public termHandler(termCheckBox: HTMLInputElement): void {
@@ -68,7 +68,11 @@ export class SearchComponent implements OnInit {
     }
   }
 
-  test() {
-    console.log(111)
+  private onDocumentClickHandler(target: Element): void {
+    if (this.editTermsWrap && target.contains(this.editTermsWrap.nativeElement)) {
+      this.viewEditToggle();
+      this.cleanSearchResult();
+    }
   }
+
 }
